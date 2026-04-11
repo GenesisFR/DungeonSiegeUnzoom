@@ -43,4 +43,4 @@ Default in-game hotkeys:
 
 ## Limitations
 
-Tooltips do not work while running the game in exclusive fullscreen mode. They are always on top by design so they're disabled to avoid the game tabbing out.
+Tooltips do not work while running the game in exclusive fullscreen mode. They are always on top by design so they were disabled to avoid the game tabbing out. The algorithm used to detect if the game is fullscreen is also rudimentary and may fail if the game is not on the primary monitor or running in borderless fullscreen mode.
