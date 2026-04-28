@@ -1,5 +1,5 @@
 # DungeonSiegeUnzoom
-An AutoHotkey 2 script for Dungeon Siege 1 to mitigate camera collision issues by constantly unzooming all the time.
+An AutoHotkey 2 script for Dungeon Siege 1 to mitigate camera collision issues by constantly unzooming.
 
 2 unzoom modes are supported:
 - fast: spams mouse wheel down.
@@ -24,6 +24,9 @@ If the game is run as admin, you must also run the script as admin for hotkeys t
 
 Default customizable hotkeys:
 
+Escape: open the menu  
+F10: open the game options  
+j: open the journal  
 Mouse wheel down: zoom out  
 Mouse wheel up: zoom in  
 -: zoom out  
