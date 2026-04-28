@@ -112,6 +112,9 @@ ReadConfigFile()
 	g_iTooltipDuration := IniReadInt(l_sConfigFile, "General", "iTooltipDuration", 1500)
 
 	; Keys
+	g_sJournalKey := IniRead(l_sConfigFile, "Keys", "sJournalKey", "j")
+	g_sMenuKey := IniRead(l_sConfigFile, "Keys", "sMenuKey", "Escape")
+	g_sOptionsKey := IniRead(l_sConfigFile, "Keys", "sOptionsKey", "F10")
 	g_sUnzoomButton := IniRead(l_sConfigFile, "Keys", "sUnzoomButton", "WheelDown")
 	g_sUnzoomKey := IniRead(l_sConfigFile, "Keys", "sUnzoomKey", "-")
 	g_sUnzoomSwitchKey := IniRead(l_sConfigFile, "Keys", "sUnzoomSwitchKey", "XButton2")
@@ -129,10 +132,13 @@ RegisterHotkeys()
 {
 	; Hotkeys are fired only when Dungeon Siege is the active window
 	HotIfWinActive("ahk_group DungeonSiege")
-	Hotkey("*$" g_sUnzoomSwitchKey, SwitchUnzoomMode, "On")
-	Hotkey("*$" g_sUnzoomToggleKey, UnzoomToggle, "On")
+	Hotkey("~*$" g_sJournalKey, CancelUnzoom, "On")
+	Hotkey("~*$" g_sMenuKey, CancelUnzoom, "On")
+	Hotkey("~*$" g_sOptionsKey, CancelUnzoom, "On")
 	Hotkey("~*$" g_sUnzoomButton, CancelUnzoom, "On")
 	Hotkey("~*$" g_sUnzoomKey, CancelUnzoom, "On")
+	Hotkey("*$"  g_sUnzoomSwitchKey, SwitchUnzoomMode, "On")
+	Hotkey("*$"  g_sUnzoomToggleKey, UnzoomToggle, "On")
 	Hotkey("~*$" g_sZoomButton, CancelUnzoom, "On")
 	Hotkey("~*$" g_sZoomKey, CancelUnzoom, "On")
 	HotIfWinActive()
@@ -158,14 +164,14 @@ SwitchUnzoomMode(*)
 	KeyWait(g_sUnzoomSwitchKey)
 }
 
-; Spam a mouse button to unzoom quickly
+; Spam mouse wheel down to unzoom quickly
 Unzoom()
 {
 	if WinActive("ahk_group DungeonSiege")
 	{
 		loop g_iSpamCount
 		{
-			; Avoid sending mouse input to other windows if the cursor is not over the game window
+			; Avoid sending mouse wheel down to other windows if the cursor is not over the game window
 			MouseGetPos(,, &l_iWinID)
 			if InStr(WinGetClass("ahk_id " l_iWinID), "gpgwndclass_")
 			{
