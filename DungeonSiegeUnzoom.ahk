@@ -20,12 +20,12 @@ Beep(p_iFrequency, p_bDoubleBeep)
 	}
 }
 
-; Disable unzoom when manually zooming in/out
+; Disable unzoom when opening the journal, map, menu, options or when manually zooming in/out, since unzooming in these cases can be undesirable
 CancelUnzoom(*)
 {
 	if (g_bDisableUnzoomOnManualZoom && g_bUnzoomToggle)
 	{
-		ShowTooltip("Manually zooming, disabling automatic unzoom")
+		ShowTooltip("Disabling automatic unzoom.")
 		DisableToggle()
 	}
 }
@@ -113,6 +113,7 @@ ReadConfigFile()
 
 	; Keys
 	g_sJournalKey := IniRead(l_sConfigFile, "Keys", "sJournalKey", "j")
+	g_sMapKey := IniRead(l_sConfigFile, "Keys", "sMapKey", "Escape")
 	g_sMenuKey := IniRead(l_sConfigFile, "Keys", "sMenuKey", "Escape")
 	g_sOptionsKey := IniRead(l_sConfigFile, "Keys", "sOptionsKey", "F10")
 	g_sUnzoomButton := IniRead(l_sConfigFile, "Keys", "sUnzoomButton", "WheelDown")
@@ -133,6 +134,7 @@ RegisterHotkeys()
 	; Hotkeys are fired only when Dungeon Siege is the active window
 	HotIfWinActive("ahk_group DungeonSiege")
 	Hotkey("~*$" g_sJournalKey, CancelUnzoom, "On")
+	Hotkey("~*$" g_sMapKey, CancelUnzoom, "On")
 	Hotkey("~*$" g_sMenuKey, CancelUnzoom, "On")
 	Hotkey("~*$" g_sOptionsKey, CancelUnzoom, "On")
 	Hotkey("~*$" g_sUnzoomButton, CancelUnzoom, "On")
@@ -159,7 +161,7 @@ SwitchUnzoomMode(*)
 {
 	DisableToggle()
 	global g_bUseSoftUnzoom := !g_bUseSoftUnzoom
-	ShowTooltip("Switched to " (g_bUseSoftUnzoom ? "soft" : "fast") " unzoom mode")
+	ShowTooltip("Switched to " (g_bUseSoftUnzoom ? "soft" : "fast") " unzoom mode.")
 	Beep(500, !g_bUseSoftUnzoom)
 	KeyWait(g_sUnzoomSwitchKey)
 }
@@ -191,7 +193,7 @@ UnzoomToggle(*)
 {
 	global g_bUnzoomToggle := !g_bUnzoomToggle
 
-	ShowTooltip((g_bUseSoftUnzoom ? "Soft" : "Fast") " unzoom toggled " (g_bUnzoomToggle ? "ON" : "OFF"))
+	ShowTooltip((g_bUseSoftUnzoom ? "Soft" : "Fast") " unzoom toggled " (g_bUnzoomToggle ? "ON." : "OFF."))
 
 	if (g_bUseSoftUnzoom)
 		Send("{Blind}{" g_sUnzoomKey " " (g_bUnzoomToggle ? "down" : "up") "}")
