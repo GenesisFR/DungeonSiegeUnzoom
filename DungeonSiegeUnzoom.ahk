@@ -14,8 +14,9 @@ Beep(p_iFrequency, p_bDoubleBeep)
 	{
 		; Single beep when toggled on
 		SoundBeep(p_iFrequency, 100)
+
+		; Double beep when toggled off
 		if (p_bDoubleBeep)
-			; Double beep when toggled off
 			SoundBeep(p_iFrequency, 100)
 	}
 }
@@ -53,8 +54,8 @@ Init()
 
 	; Set an event hook to detect when the game window loses focus
 	DllCall("user32\SetWinEventHook",
-			"Int", 0x0003, ; EVENT_SYSTEM_FOREGROUND
-			"Int", 0x0003,
+			"Int", EVENT_SYSTEM_FOREGROUND := 0x0003,
+			"Int", EVENT_SYSTEM_FOREGROUND,
 			"Ptr", 0,
 			"Ptr", CallbackCreate(OnFocusChanged, "F"),
 			"Int", 0,
@@ -75,7 +76,7 @@ IsFullscreen()
 }
 
 ; Disable unzoom when the game window loses focus
-OnFocusChanged(hWinEventHook, vEvent, hWnd)
+OnFocusChanged(*)
 {
 	if !WinActive("ahk_group DungeonSiege")
 		DisableToggle()
@@ -113,7 +114,7 @@ ReadConfigFile()
 
 	; Keys
 	g_sJournalKey := IniRead(l_sConfigFile, "Keys", "sJournalKey", "j")
-	g_sMapKey := IniRead(l_sConfigFile, "Keys", "sMapKey", "Escape")
+	g_sMapKey := IniRead(l_sConfigFile, "Keys", "sMapKey", "Tab")
 	g_sMenuKey := IniRead(l_sConfigFile, "Keys", "sMenuKey", "Escape")
 	g_sOptionsKey := IniRead(l_sConfigFile, "Keys", "sOptionsKey", "F10")
 	g_sUnzoomButton := IniRead(l_sConfigFile, "Keys", "sUnzoomButton", "WheelDown")
