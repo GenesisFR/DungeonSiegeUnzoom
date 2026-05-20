@@ -11,7 +11,7 @@ You can run the script from anywhere, as long as "DungeonSiegeUnzoom.ini" is in 
 
 ## Usage
 
-The hotkeys will only be active when the Dungeon Siege window is active.
+The hotkeys will only be active when the Dungeon Siege window is active. By default, automatic unzoom will disengage when pressing one of the keys below.
 
 You can edit the script settings in the "DungeonSiegeUnzoom.ini" config file. Please read it for more information about settings.
 
@@ -24,9 +24,10 @@ If the game is run as admin, you must also run the script as admin for hotkeys t
 
 Default customizable hotkeys:
 
+j: open the journal  
+Tab: open the map  
 Escape: open the menu  
 F10: open the game options  
-j: open the journal  
 Mouse wheel down: zoom out  
 Mouse wheel up: zoom in  
 -: zoom out  
