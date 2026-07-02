@@ -4,6 +4,7 @@
 
 ; Whether unzoom is currently toggled on or off
 g_bUnzoomToggle := false
+g_sWindowTitle := "ahk_group DungeonSiege"
 
 Init()
 
@@ -61,6 +62,14 @@ Init()
 			"Int", 0,
 			"Int", 0,
 			"Int", 0)
+	
+	if (g_bRunGameOnStartup)
+	{
+		if WinExist(g_sWindowTitle)
+			WinActivate()
+		else
+			Run("steam://run/39190")
+	}
 }
 
 ; Check if the active window is in fullscreen mode (only works on the primary monitor for now)
@@ -78,23 +87,8 @@ IsFullscreen()
 ; Disable unzoom when the game window loses focus
 OnFocusChanged(*)
 {
-	if !WinActive("ahk_group DungeonSiege")
+	if !WinActive(g_sWindowTitle)
 		DisableToggle()
-}
-
-IniReadInt(p_sFile, p_sSection, p_sKey, p_sDefault)
-{
-	l_sValue := IniRead(p_sFile, p_sSection, p_sKey, p_sDefault)
-
-	try
-	{
-		l_nValue := l_sValue + 0
-		return l_nValue
-	}
-	catch TypeError ; not an integer
-	{
-		return p_sDefault
-	}
 }
 
 ReadConfigFile()
@@ -105,12 +99,16 @@ ReadConfigFile()
 
 	; General
 	g_bDisableUnzoomOnManualZoom := IniRead(l_sConfigFile, "General", "bDisableUnzoomOnManualZoom", true) == true
+	g_bRunGameOnStartup := IniRead(l_sConfigFile, "General", "bRunGameOnStartup", true) == true
 	g_bShowTooltip := IniRead(l_sConfigFile, "General", "bShowTooltip", true) == true
 	g_bSoundBeep := IniRead(l_sConfigFile, "General", "bSoundBeep", true) == true
 	g_bUseSoftUnzoom := IniRead(l_sConfigFile, "General", "bUseSoftUnzoom", false) == true
-	g_iSpamCount := IniReadInt(l_sConfigFile, "General", "iSpamCount", 10)
-	g_iTimerInterval := IniReadInt(l_sConfigFile, "General", "iTimerInterval", 100)
-	g_iTooltipDuration := IniReadInt(l_sConfigFile, "General", "iTooltipDuration", 1500)
+	if !IsInteger(g_iSpamCount := IniRead(l_sConfigFile, "General", "iSpamCount", 10))
+		g_iSpamCount := 10
+	if !IsInteger(g_iTimerInterval := IniRead(l_sConfigFile, "General", "iTimerInterval", 100))
+		g_iTimerInterval := 100
+	if !IsInteger(g_iTooltipDuration := IniRead(l_sConfigFile, "General", "iTooltipDuration", 1500))
+		g_iTooltipDuration := 1500
 
 	; Keys
 	g_sJournalKey := IniRead(l_sConfigFile, "Keys", "sJournalKey", "j")
@@ -133,7 +131,7 @@ ReadConfigFile()
 RegisterHotkeys()
 {
 	; Hotkeys are fired only when Dungeon Siege is the active window
-	HotIfWinActive("ahk_group DungeonSiege")
+	HotIfWinActive(g_sWindowTitle)
 	Hotkey("~*$" g_sJournalKey, CancelUnzoom, "On")
 	Hotkey("~*$" g_sMapKey, CancelUnzoom, "On")
 	Hotkey("~*$" g_sMenuKey, CancelUnzoom, "On")
@@ -170,7 +168,7 @@ SwitchUnzoomMode(*)
 ; Spam mouse wheel down to unzoom quickly
 Unzoom()
 {
-	if WinActive("ahk_group DungeonSiege")
+	if WinActive(g_sWindowTitle)
 	{
 		loop g_iSpamCount
 		{
