@@ -2,18 +2,17 @@
 An AutoHotkey 2 script for Dungeon Siege 1 to mitigate camera collision issues by constantly unzooming.
 
 2 unzoom modes are supported:
+
 - fast: spams mouse wheel down.
 - soft: holds the zoom out keyboard key down.
 
 ## Installation
 
-You can run the script from anywhere, as long as "DungeonSiegeUnzoom.ini" is in the same directory.  
+You can run the script from anywhere, as long as `DungeonSiegeUnzoom.ini` is in the same directory. All keys are configurable in the config file.
 
 ## Usage
 
-The hotkeys will only be active when the Dungeon Siege window is active. By default, automatic unzoom will disengage when pressing one of the keys below.
-
-You can edit the script settings in the "DungeonSiegeUnzoom.ini" config file. Please read it for more information about settings.
+The hotkeys will only be active when the Dungeon Siege window is active. By default, automatic unzoom will disengage when pressing one of the customizable hotkeys below.
 
 Make sure your hotkeys are the same than the ones in-game.
 
@@ -22,24 +21,24 @@ If the game is run as admin, you must also run the script as admin for hotkeys t
 > [!CAUTION]
 **Do NOT remap mouse wheel up/down as that's the only way to get a fast unzoom!**
 
-Default customizable hotkeys:
+## Default hotkeys (see [KeyList](https://www.autohotkey.com/docs/v2/KeyList.htm))
 
-j: open the journal  
-Tab: open the map  
-Escape: open the menu  
-F10: open the game options  
-Mouse wheel down: zoom out  
-Mouse wheel up: zoom in  
--: zoom out  
-=: zoom in  
-4th mouse button: toggle unzoom on and off  
-5th mouse button: switch between soft and fast unzoom modes  
+- `j`: open the journal  
+- `Tab`: open the map  
+- `Escape`: open the menu  
+- `F10`: open the game options  
+- `-`: zoom out  
+- `=`: zoom in  
+- `WheelDown`: zoom out  
+- `WheelUp`: zoom in  
+- `XButton1`: toggle unzoom on and off  
+- `XButton2`: switch between soft and fast unzoom modes  
 
-Hardcoded hotkeys:
+## Hard-coded hotkeys
 
-CTRL + Left ALT + F10: close the script  
-CTRL + Left ALT + F11: reload the script  
-CTRL + Left ALT + F12: suspend the script (disables all hotkeys)
+- `CTRL + Left ALT + F10`: close the script  
+- `CTRL + Left ALT + F11`: reload the script  
+- `CTRL + Left ALT + F12`: suspend the script (disables all hotkeys)
 
 Default in-game hotkeys:
 
