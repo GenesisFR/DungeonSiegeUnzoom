@@ -99,7 +99,7 @@ ReadConfigFile()
 
 	; General
 	g_bDisableUnzoomOnManualZoom := IniRead(l_sConfigFile, "General", "bDisableUnzoomOnManualZoom", true) == true
-	g_bRunGameOnStartup := IniRead(l_sConfigFile, "General", "bRunGameOnStartup", true) == true
+	g_bRunGameOnStartup := IniRead(l_sConfigFile, "General", "bRunGameOnStartup", false) == true
 	g_bShowTooltip := IniRead(l_sConfigFile, "General", "bShowTooltip", true) == true
 	g_bSoundBeep := IniRead(l_sConfigFile, "General", "bSoundBeep", true) == true
 	g_bUseSoftUnzoom := IniRead(l_sConfigFile, "General", "bUseSoftUnzoom", false) == true
